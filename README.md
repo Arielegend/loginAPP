@@ -9,8 +9,8 @@ In order to login make sure
 
 ## Installation
 
-- git clone https://github.com/Arielegend/loginAPP.git
-- cd loginAPP
+- git clone https://github.com/Arielegend/loginApp.git
+- cd loginApp
 - npm i
 - npm start
 
@@ -30,19 +30,16 @@ Here you can Filter data as you wish!
   - number1-number2 => Will display all rows, with corresponding field in range of [number1 , number2]
     - In case you choose to filter by range, make sure to have no spaces
 
- 
 ## Example
-Following example shows all projects filtered by: 
+
+Following example shows all projects filtered by:
+
 1. name "back"
 2. Failed Deadline
 3. Score between 55-100
 4. Duration at least 20 (days)
 5. Bugs at most 80
 
-
 ![alt text](pics/example.png)
 
-
 Made with <3
-
-

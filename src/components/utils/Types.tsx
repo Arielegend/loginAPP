@@ -44,3 +44,5 @@ export const initialProject: Project = {
   bugsCount: 0,
   madeDadeline: true,
 };
+
+/////////////////////////////////////////////////
