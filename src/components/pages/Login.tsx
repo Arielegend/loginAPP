@@ -8,7 +8,12 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { ValidAsEmail, ValidAsPassword } from "../utils/Common";
+import {
+  Contain1Char,
+  Contain1Digit,
+  ValidAsEmail,
+  ValidAsPassword,
+} from "../utils/Common";
 import { useHistory } from "react-router-dom";
 import { User } from "../utils/Types";
 import { loginAuth } from "../utils/API";
@@ -47,6 +52,9 @@ export const LoginPage: FC<LoginProps> = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [mailParamsMessage, setMailParamsMessage] = useState("");
+  const [passwordParamsMessage, setPasswordParamsMessage] = useState("");
+
   // const loading indicates sending POST msgs, waiting for approval
   const [loading, setLoading] = useState(false);
 
@@ -70,10 +78,31 @@ export const LoginPage: FC<LoginProps> = (props) => {
     }
   }
 
+  function PrepareMailMessage(mail: string) {
+    return "Wrong mail format";
+  }
+
+  function PreparePasswordMessage(password: string) {
+    let warning = "";
+    if (password.length < 8) warning += "Not long enough ";
+
+    if (!Contain1Char(password)) warning += "| Upper case missing ";
+    if (!Contain1Digit(password)) warning += "| Digit missing ";
+
+    return warning;
+  }
+
   // Each time we make input to email AND password field,
   // this function is invoked, checking their both validity
   // In case both valid -> buttn will be able to be pressed and log in...
   useEffect(() => {
+    if (!ValidAsEmail(email)) setMailParamsMessage(PrepareMailMessage(email));
+    else setMailParamsMessage("");
+
+    if (!ValidAsPassword(password))
+      setPasswordParamsMessage(PreparePasswordMessage(password));
+    else setPasswordParamsMessage("");
+
     const areParamsValid: boolean =
       ValidAsEmail(email) && ValidAsPassword(password);
     setValid(areParamsValid);
@@ -102,6 +131,7 @@ export const LoginPage: FC<LoginProps> = (props) => {
             autoFocus
             onChange={handleEmailInput}
           />
+          {mailParamsMessage}
           <TextField
             variant="outlined"
             margin="normal"
@@ -114,6 +144,7 @@ export const LoginPage: FC<LoginProps> = (props) => {
             autoComplete="current-password"
             onChange={handlePasswordInput}
           />
+          {passwordParamsMessage}
 
           <Button
             fullWidth

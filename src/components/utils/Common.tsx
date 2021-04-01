@@ -11,3 +11,21 @@ export function ValidAsPassword(password: string) {
   const regexPassword = new RegExp(/^(?=.*[A-Z])(?=.*[0-9]).{8,}$/);
   return regexPassword.test(password);
 }
+
+export function Contain1Char(str: string) {
+  if (str.length > 0) {
+    for (let i = 0; i < str.length; i++) {
+      if (str.charAt(i).toUpperCase() === str.charAt(i)) return true;
+    }
+  }
+  return false;
+}
+
+export function Contain1Digit(str: string) {
+  if (str.length > 0) {
+    for (let i = 0; i < str.length; i++) {
+      if (str.charAt(i) > "0" && str.charAt(i) < "10") return true;
+    }
+  }
+  return false;
+}
